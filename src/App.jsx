@@ -5,6 +5,7 @@ import ProgressDashboard from './ProgressDashboard';
 import './App.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import API_BASE_URL from './config';
+import { useNavigate } from 'react-router-dom';
 
 // Enhanced XP Bar Component with Neon Glow Effect
 const XPBar = ({ xp, maxXp, previewXp = 0 }) => {
@@ -226,6 +227,8 @@ function App() {
   const [newHabitName, setNewHabitName] = useState('');
   const [newHabitXp, setNewHabitXp] = useState(10); // default XP for new habits
   const [activePanel, setActivePanel] = useState(null);
+  const navigate = useNavigate();
+
 
   // Add this with your other state variables
   const [view, setView] = useState("dashboard"); // "dashboard" or "analytics"

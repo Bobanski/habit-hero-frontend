@@ -1019,7 +1019,7 @@ const loadUserData = async () => {
                     </motion.p>
                   )}
                 </div>
-                <div className="w-full max-w-[95vw] sm:max-w-lg mx-auto mt-6">
+                <div className="w-full max-w-[95vw] sm:max-w-md mx-auto mt-4 px-2">
                   <XPBar xp={xp} maxXp={maxXp} previewXp={previewXp} />
                 </div>
               </div>

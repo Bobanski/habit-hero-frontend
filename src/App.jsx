@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import Login from './Login';
 import ProgressDashboard from './ProgressDashboard';
 import './App.css';
@@ -699,566 +699,566 @@ const loadUserData = async () => {
   
   // Use React Router for routing
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/progress" element={
-          <ProgressDashboard 
-            userData={{ 
-              username: user?.username, 
-              level,
-              xp,
-              habits, 
-              prs: personalRecords,
-              todos
-            }}
-          />
-        } />
-        <Route path="/" element={
-          <div className="min-h-screen flex items-center justify-center bg-gray-200 p-4">
-            {/* User info/logout button - keep this as is */}
-            <div className="absolute top-4 right-4 flex items-center gap-2">
-              <span className="text-sm text-gray-700">
-                Logged in as <span className="font-bold">{user.username}</span>
-              </span>
-              <button
-                onClick={handleLogout}
-                className="bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs py-1 px-2 rounded"
-              >
-                Logout
-              </button>
-              {/* Replace analytics button with router link */}
-              <button
-                onClick={() => {
-                  console.log('Navigating to progress page');
-                  navigate('/progress');
-                }}
-                className="bg-blue-500 hover:bg-blue-600 text-white text-xs py-1 px-2 rounded flex items-center"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
-                  <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
-                </svg>
-                View Progress
-              </button>
+
+    <Routes>
+      <Route path="/progress" element={
+        <ProgressDashboard 
+          userData={{ 
+            username: user?.username, 
+            level,
+            xp,
+            habits, 
+            prs: personalRecords,
+            todos
+          }}
+        />
+      } />
+      <Route path="/" element={
+        <div className="min-h-screen flex items-center justify-center bg-gray-200 p-4">
+          {/* User info/logout button - keep this as is */}
+          <div className="absolute top-4 right-4 flex items-center gap-2">
+            <span className="text-sm text-gray-700">
+              Logged in as <span className="font-bold">{user.username}</span>
+            </span>
+            <button
+              onClick={handleLogout}
+              className="bg-gray-200 hover:bg-gray-300 text-gray-700 text-xs py-1 px-2 rounded"
+            >
+              Logout
+            </button>
+            {/* Replace analytics button with router link */}
+            <button
+              onClick={() => {
+                console.log('Navigating to progress page');
+                navigate('/progress');
+              }}
+              className="bg-blue-500 hover:bg-blue-600 text-white text-xs py-1 px-2 rounded flex items-center"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+              </svg>
+              View Progress
+            </button>
+          </div>
+          
+          {/* Rest of your dashboard code */}
+          <div className="grid grid-cols-3 grid-rows-3 gap-8 w-full max-w-4xl aspect-square">
+            {/* Top Left: Daily Habits */}
+            <div className="col-start-1 col-span-1 row-start-1 row-span-1 flex items-start justify-start">
+              {/* Keep existing habits panel content */}
+              {!isPanelOpen('habits') ? (
+                <button
+                  onClick={() => openPanel('habits')}
+                  className="bg-white rounded-lg shadow-md py-2 px-4 hover:bg-blue-50 transition-all duration-300 flex items-center space-x-2 border-l-4 border-blue-500"
+                >
+                  <span className="text-xl">✅</span>
+                  <div className="text-left">
+                    <span className="font-bold text-gray-800 block">Daily Habits</span>
+                    <span className="text-xs text-gray-500">{completedHabits}/{habits.length} completed</span>
+                  </div>
+                </button>
+              ) : (
+                <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-l-4 border-blue-500 origin-top-left">
+                  {/* Existing habits panel content */}
+                  <div className="flex justify-between items-center mb-3">
+                    <h3 className="font-bold text-gray-800 flex items-center">
+                      <span className="mr-2">✅</span>
+                      <span>Daily Habits</span>
+                    </h3>
+                    <button 
+                      onClick={() => openPanel(null)}
+                      className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M4.293 4.293a1 1 011.414 0L10 8.586l4.293-4.293a1 1 111.414 1.414L11.414 10l4.293 4.293a1 1 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  {/* Add new habit form */}
+                  <form onSubmit={addNewHabit} className="mb-3">
+                    <div className="flex items-center mb-2">
+                      <input
+                        type="text"
+                        value={newHabitName}
+                        onChange={(e) => setNewHabitName(e.target.value)}
+                        placeholder="New habit name..."
+                        className="flex-grow text-sm border border-gray-300 rounded-l-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                      />
+                      <div className="relative">
+                        <select
+                          value={newHabitXp}
+                          onChange={(e) => setNewHabitXp(parseInt(e.target.value))}
+                          className="text-sm border-y border-r border-gray-300 rounded-r-lg px-2 py-2 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                        >
+                          <option value={5}>5 XP</option>
+                          <option value={10}>10 XP</option>
+                          <option value={15}>15 XP</option>
+                          <option value={20}>20 XP</option>
+                        </select>
+                      </div>
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-md transition"
+                      disabled={newHabitName.trim() === ''}
+                    >
+                      Add Habit
+                    </button>
+                  </form>
+                  
+                  <div className="divide-y divide-gray-200 rounded-lg overflow-hidden border border-gray-200">
+                    {habits.length > 0 ? (
+                      habits.map(habit => (
+                        <HabitItem 
+                          key={habit.id} 
+                          habit={habit} 
+                          onChange={toggleHabitSelection}
+                          editable={true}
+                          multiplier={streakMultiplier}
+                        />
+                      ))
+                    ) : (
+                      <div className="p-3 text-sm text-gray-500 text-center">
+                        No habits added yet. Create your first habit above!
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="mt-3 flex justify-between">
+                    <button
+                      onClick={submitHabits}
+                      disabled={selectedHabits === 0}
+                      className={`py-1.5 px-3 rounded-lg transition text-xs font-medium ${
+                        selectedHabits > 0 
+                          ? 'bg-green-500 text-white hover:bg-green-600' 
+                          : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                      }`}
+                    >
+                      Enter Habits
+                    </button>
+                    <button
+                      onClick={resetHabits}
+                      className="py-1.5 px-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition text-xs"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
             
-            {/* Rest of your dashboard code */}
-            <div className="grid grid-cols-3 grid-rows-3 gap-8 w-full max-w-4xl aspect-square">
-              {/* Top Left: Daily Habits */}
-              <div className="col-start-1 col-span-1 row-start-1 row-span-1 flex items-start justify-start">
-                {/* Keep existing habits panel content */}
-                {!isPanelOpen('habits') ? (
-                  <button
-                    onClick={() => openPanel('habits')}
-                    className="bg-white rounded-lg shadow-md py-2 px-4 hover:bg-blue-50 transition-all duration-300 flex items-center space-x-2 border-l-4 border-blue-500"
-                  >
-                    <span className="text-xl">✅</span>
-                    <div className="text-left">
-                      <span className="font-bold text-gray-800 block">Daily Habits</span>
-                      <span className="text-xs text-gray-500">{completedHabits}/{habits.length} completed</span>
-                    </div>
-                  </button>
-                ) : (
-                  <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-l-4 border-blue-500 origin-top-left">
-                    {/* Existing habits panel content */}
-                    <div className="flex justify-between items-center mb-3">
-                      <h3 className="font-bold text-gray-800 flex items-center">
-                        <span className="mr-2">✅</span>
-                        <span>Daily Habits</span>
-                      </h3>
-                      <button 
-                        onClick={() => openPanel(null)}
-                        className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M4.293 4.293a1 1 011.414 0L10 8.586l4.293-4.293a1 1 111.414 1.414L11.414 10l4.293 4.293a1 1 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                      </button>
-                    </div>
-                    
-                    {/* Add new habit form */}
-                    <form onSubmit={addNewHabit} className="mb-3">
-                      <div className="flex items-center mb-2">
-                        <input
-                          type="text"
-                          value={newHabitName}
-                          onChange={(e) => setNewHabitName(e.target.value)}
-                          placeholder="New habit name..."
-                          className="flex-grow text-sm border border-gray-300 rounded-l-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                        />
-                        <div className="relative">
-                          <select
-                            value={newHabitXp}
-                            onChange={(e) => setNewHabitXp(parseInt(e.target.value))}
-                            className="text-sm border-y border-r border-gray-300 rounded-r-lg px-2 py-2 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                          >
-                            <option value={5}>5 XP</option>
-                            <option value={10}>10 XP</option>
-                            <option value={15}>15 XP</option>
-                            <option value={20}>20 XP</option>
-                          </select>
-                        </div>
-                      </div>
-                      <button
-                        type="submit"
-                        className="w-full py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-medium rounded-md transition"
-                        disabled={newHabitName.trim() === ''}
-                      >
-                        Add Habit
-                      </button>
-                    </form>
-                    
-                    <div className="divide-y divide-gray-200 rounded-lg overflow-hidden border border-gray-200">
-                      {habits.length > 0 ? (
-                        habits.map(habit => (
-                          <HabitItem 
-                            key={habit.id} 
-                            habit={habit} 
-                            onChange={toggleHabitSelection}
-                            editable={true}
-                            multiplier={streakMultiplier}
-                          />
-                        ))
-                      ) : (
-                        <div className="p-3 text-sm text-gray-500 text-center">
-                          No habits added yet. Create your first habit above!
-                        </div>
-                      )}
-                    </div>
-                    
-                    <div className="mt-3 flex justify-between">
-                      <button
-                        onClick={submitHabits}
-                        disabled={selectedHabits === 0}
-                        className={`py-1.5 px-3 rounded-lg transition text-xs font-medium ${
-                          selectedHabits > 0 
-                            ? 'bg-green-500 text-white hover:bg-green-600' 
-                            : 'bg-gray-200 text-gray-500 cursor-not-allowed'
-                        }`}
-                      >
-                        Enter Habits
-                      </button>
-                      <button
-                        onClick={resetHabits}
-                        className="py-1.5 px-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition text-xs"
-                      >
-                        Reset
-                      </button>
-                    </div>
+            {/* Top Right: Active Streaks */}
+            <div className="col-start-3 col-span-1 row-start-1 row-span-1 flex items-start justify-end">
+              {/* Keep existing streaks panel content */}
+              {!isPanelOpen('streaks') ? (
+                <button
+                  onClick={() => openPanel('streaks')}
+                  className="bg-white rounded-lg shadow-md py-2 px-4 hover:bg-orange-50 transition-all duration-300 flex items-center space-x-2 border-r-4 border-orange-500"
+                >
+                  <span className="text-xl">🔥</span>
+                  <div className="text-left">
+                    <span className="font-bold text-gray-800 block">Active Streaks</span>
+                    <span className="text-xs text-gray-500">{activeStreaks.length} active</span>
                   </div>
-                )}
-              </div>
-              
-              {/* Top Right: Active Streaks */}
-              <div className="col-start-3 col-span-1 row-start-1 row-span-1 flex items-start justify-end">
-                {/* Keep existing streaks panel content */}
-                {!isPanelOpen('streaks') ? (
-                  <button
-                    onClick={() => openPanel('streaks')}
-                    className="bg-white rounded-lg shadow-md py-2 px-4 hover:bg-orange-50 transition-all duration-300 flex items-center space-x-2 border-r-4 border-orange-500"
-                  >
-                    <span className="text-xl">🔥</span>
-                    <div className="text-left">
-                      <span className="font-bold text-gray-800 block">Active Streaks</span>
-                      <span className="text-xs text-gray-500">{activeStreaks.length} active</span>
-                    </div>
-                  </button>
-                ) : (
-                  <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-r-4 border-orange-500">
-                    {/* Existing streaks panel content */}
-                    <div className="flex justify-between items-center mb-3">
-                      <h3 className="font-bold text-gray-800 flex items-center">
-                        <span className="mr-2">🔥</span>
-                        <span>Active Streaks</span>
-                      </h3>
-                      <button 
-                        onClick={() => openPanel(null)}
-                        className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M4.293 4.293a1 1 011.414 0L10 8.586l4.293-4.293a1 1 111.414 1.414L11.414 10l4.293 4.293a1 1 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                      </button>
-                    </div>
-                    
-                    <div className="divide-y divide-gray-200">
-                      {activeStreaks.length > 0 ? (
-                        activeStreaks.map(habit => (
-                          <StreakItem key={habit.id} habit={habit} />
-                        ))
-                      ) : (
-                        <p className="text-sm text-gray-500 py-2">
-                          No active streaks yet — complete habits two days in a row to begin!
-                        </p>
-                      )}
-                    </div>
-                    
-                    {activeStreaks.length > 0 && (
-                      <div className="mt-3 text-xs text-gray-600 italic">
-                        Streaks boost your XP multiplier!
-                      </div>
-                    )}
+                </button>
+              ) : (
+                <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-r-4 border-orange-500">
+                  {/* Existing streaks panel content */}
+                  <div className="flex justify-between items-center mb-3">
+                    <h3 className="font-bold text-gray-800 flex items-center">
+                      <span className="mr-2">🔥</span>
+                      <span>Active Streaks</span>
+                    </h3>
+                    <button 
+                      onClick={() => openPanel(null)}
+                      className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M4.293 4.293a1 1 011.414 0L10 8.586l4.293-4.293a1 1 111.414 1.414L11.414 10l4.293 4.293a1 1 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </button>
                   </div>
-                )}
-              </div>
-              
-              {/* Center: Avatar + XP - spans all rows */}
-              <div className="col-start-2 col-span-1 row-start-1 row-span-3 flex flex-col items-center justify-center">
-                <h1 className="text-4xl font-bold text-gray-800 mb-1">Habit Hero</h1>
-                <h2 className="text-lg text-gray-600 mb-4">Level {level}</h2>
-                
-                {/* Avatar with glow effect */}
-                <div className="relative mb-10">
-                  <div className="absolute inset-0 scale-150 bg-orange-100 rounded-full filter blur-xl opacity-60 animate-pulse"></div>
-                  <img 
-                    src={avatarImage} 
-                    alt={`Level ${level} Avatar`}
-                    style={{ width: '180px', height: '180px' }} 
-                    className="relative object-cover rounded-full shadow-2xl border-4 border-white z-10 transition-all duration-700" 
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.style.display = 'none';
-                      const fallback = document.createElement('div');
-                      fallback.className = "w-32 h-32 bg-gray-200 rounded-full shadow-inner flex items-center justify-center";
-                      fallback.innerHTML = '<span class="text-gray-400 text-6xl">👤</span>';
-                      e.target.parentNode.appendChild(fallback);
-                    }}
-                  />
                   
-                  {/* Level indicator badge */}
-                  <div className="absolute -bottom-3 right-5 bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold border-2 border-white shadow-lg z-20">
-                    {level}
-                  </div>
-                </div>
-                
-                {/* XP Display */}
-                <div className="w-full bg-black bg-opacity-10 backdrop-filter backdrop-blur-sm py-4 px-5 rounded-xl shadow-md">
-                  {/* Existing XP content */}
-                  <div className="flex justify-between items-center mb-2">
-                    <div className="flex items-center">
-                      <p className="text-gray-800 font-medium text-lg">
-                        XP: 
-                        <AnimatePresence mode="wait">
-                          <motion.span
-                            key={xp}
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 20, position: 'absolute' }}
-                            className="inline-block ml-1 mr-1"
-                            transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                          >
-                            {xp}
-                          </motion.span>
-                        </AnimatePresence>
-                        / {maxXp}
+                  <div className="divide-y divide-gray-200">
+                    {activeStreaks.length > 0 ? (
+                      activeStreaks.map(habit => (
+                        <StreakItem key={habit.id} habit={habit} />
+                      ))
+                    ) : (
+                      <p className="text-sm text-gray-500 py-2">
+                        No active streaks yet — complete habits two days in a row to begin!
                       </p>
-                      {streakMultiplier > 1 && (
-                        <motion.div 
-                          className="ml-3 text-base text-orange-500 font-bold flex items-center" 
-                          title="Streak Bonus Active!"
-                          initial={{ scale: 0.8, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                        >
-                          <motion.span 
-                            className="mr-1"
-                            animate={{ rotate: [-5, 5, -5] }}
-                            transition={{ duration: 1.5, repeat: Infinity, repeatType: "mirror" }}
-                          >
-                            🔥
-                          </motion.span>
-                          <span>x{streakMultiplier.toFixed(1)}</span>
-                        </motion.div>
-                      )}
-                    </div>
-                    {previewXp > 0 && (
-                      <motion.p 
-                        className="text-base text-green-600 font-medium"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0 }}
-                        key={previewXp}
-                      >
-                        +{previewXp} XP
-                      </motion.p>
                     )}
                   </div>
-                  <div className="relative">
-                    <XPBar xp={xp} maxXp={maxXp} previewXp={previewXp} />
-                  </div>
+                  
+                  {activeStreaks.length > 0 && (
+                    <div className="mt-3 text-xs text-gray-600 italic">
+                      Streaks boost your XP multiplier!
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            
+            {/* Center: Avatar + XP - spans all rows */}
+            <div className="col-start-2 col-span-1 row-start-1 row-span-3 flex flex-col items-center justify-center">
+              <h1 className="text-4xl font-bold text-gray-800 mb-1">Habit Hero</h1>
+              <h2 className="text-lg text-gray-600 mb-4">Level {level}</h2>
+              
+              {/* Avatar with glow effect */}
+              <div className="relative mb-10">
+                <div className="absolute inset-0 scale-150 bg-orange-100 rounded-full filter blur-xl opacity-60 animate-pulse"></div>
+                <img 
+                  src={avatarImage} 
+                  alt={`Level ${level} Avatar`}
+                  style={{ width: '180px', height: '180px' }} 
+                  className="relative object-cover rounded-full shadow-2xl border-4 border-white z-10 transition-all duration-700" 
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.className = "w-32 h-32 bg-gray-200 rounded-full shadow-inner flex items-center justify-center";
+                    fallback.innerHTML = '<span class="text-gray-400 text-6xl">👤</span>';
+                    e.target.parentNode.appendChild(fallback);
+                  }}
+                />
+                
+                {/* Level indicator badge */}
+                <div className="absolute -bottom-3 right-5 bg-blue-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-xl font-bold border-2 border-white shadow-lg z-20">
+                  {level}
                 </div>
               </div>
               
-              {/* Bottom Left: Personal Records */}
-              <div className="col-start-1 col-span-1 row-start-3 row-span-1 flex items-end justify-start">
-                {/* Keep existing records panel content */}
-                {!isPanelOpen('records') ? (
-                  <button
-                    onClick={() => openPanel('records')}
-                    className="bg-white rounded-lg shadow-md py-2 px-4 hover:bg-purple-50 transition-all duration-300 flex items-center space-x-2 border-l-4 border-purple-500"
-                  >
-                    <span className="text-xl">🏆</span>
-                    <div className="text-left">
-                      <span className="font-bold text-gray-800 block">Personal Records</span>
-                      <span className="text-xs text-gray-500">Level {level} achieved</span>
-                    </div>
-                  </button>
-                ) : (
-                  <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-l-4 border-purple-500 origin-bottom-left">
-                    {/* Existing records panel content */}
-                    <div className="flex justify-between items-center mb-3">
-                      <h3 className="font-bold text-gray-800 flex items-center">
-                        <span className="mr-2">🏆</span>
-                        <span>Personal Records</span>
-                      </h3>
-                      <button 
-                        onClick={() => openPanel(null)}
-                        className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M4.293 4.293a1 1 011.414 0L10 8.586l4.293-4.293a1 1 111.414 1.414L11.414 10l4.293 4.293a1 1 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                      </button>
-                    </div>
-                    
-                    {/* Add new PR form */}
-                    <form onSubmit={addPersonalRecord} className="mb-3">
-                      <div className="mb-2">
-                        <input
-                          type="text"
-                          value={newPrName}
-                          onChange={(e) => setNewPrName(e.target.value)}
-                          placeholder="New record name..."
-                          className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 mb-1 focus:outline-none focus:ring-1 focus:ring-purple-500"
-                        />
-                        <div className="flex space-x-1">
-                          <input
-                            type="number"
-                            value={newPrValue}
-                            onChange={(e) => setNewPrValue(e.target.value)}
-                            placeholder="Starting value..."
-                            className="flex-grow text-sm border border-gray-300 rounded-l-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-purple-500"
-                            min="0"
-                          />
-                          <select
-                            value={newPrUnit}
-                            onChange={(e) => setNewPrUnit(e.target.value)}
-                            className="text-sm border-y border-r border-gray-300 rounded-r-lg px-2 py-2 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-purple-500"
-                          >
-                            <option value="reps">reps</option>
-                            <option value="seconds">seconds</option>
-                            <option value="minutes">minutes</option>
-                            <option value="kg">kg</option>
-                            <option value="lbs">lbs</option>
-                          </select>
-                        </div>
-                      </div>
-                      <button
-                        type="submit"
-                        className="w-full py-1.5 bg-purple-500 hover:bg-purple-600 text-white text-xs font-medium rounded-md transition"
-                        disabled={newPrName.trim() === '' || newPrValue === '' || isNaN(newPrValue) || newPrValue < 0}
-                      >
-                        Add Record
-                      </button>
-                    </form>
-                    
-                    {/* Update the personal records display */}
-                    <div className="space-y-2">
-                      {personalRecords.length > 0 ? (
-                        personalRecords.map(record => (
-                          <div key={record.id} className="bg-purple-50 rounded-lg p-2">
-                            <div className="flex justify-between items-center mb-1">
-                              <span className="text-sm text-gray-700 truncate max-w-[150px]">{record.name}:</span>
-                              <span className="text-sm font-medium text-purple-700">
-                                {record.current} {record.unit}
-                              </span>
-                            </div>
-                            <div className="flex space-x-1 justify-end">
-                              <button 
-                                onClick={() => tiePR(record.id)}
-                                className="py-1 px-2 text-xs bg-purple-200 text-purple-700 rounded hover:bg-purple-300 transition"
-                                title="Award 25 XP for tying your record"
-                              >
-                                Tie (+25)
-                              </button>
-                              <button 
-                                onClick={() => beatPR(record.id)}
-                                className="py-1 px-2 text-xs bg-purple-500 text-white rounded hover:bg-purple-600 transition"
-                                title="Award 50 XP and update your record"
-                              >
-                                Beat (+50)
-                              </button>
-                            </div>
-                          </div>
-                        ))
-                      ) : (
-                        <div className="p-2 text-sm text-gray-500 text-center">
-                          No records added yet. Create your first record above!
-                        </div>
-                      )}
-                    
-                      {/* Stats section */}
-                      <div className="mt-3 pt-3 border-t border-gray-200">
-                        <div className="flex justify-between items-center">
-                          <span className="text-sm text-gray-700">Highest level:</span>
-                          <span className="text-sm font-medium text-purple-700">{level}</span>
-                        </div>
-                        <div className="flex justify-between items-center mt-1">
-                          <span className="text-sm text-gray-700">Total XP earned:</span>
-                          <span className="text-sm font-medium text-purple-700">
-                            {(level - 1) * 100 + xp} XP
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-              
-              {/* Bottom Right: To-Dos */}
-              <div className="col-start-3 col-span-1 row-start-3 row-span-1 flex items-end justify-end">
-                {/* Keep existing todos panel content */}
-                {!isPanelOpen('todos') ? (
-                  <button
-                    onClick={() => openPanel('todos')}
-                    className="bg-white rounded-lg shadow-md py-2 px-4 hover:bg-green-50 transition-all duration-300 flex items-center space-x-2 border-r-4 border-green-500"
-                  >
-                    <span className="text-xl">📋</span>
-                    <div className="text-left">
-                      <span className="font-bold text-gray-800 block">To-Dos</span>
-                      <span className="text-xs text-gray-500">Quick tasks</span>
-                    </div>
-                  </button>
-                ) : (
-                  <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-r-4 border-green-500 origin-bottom-right">
-                    {/* Existing todos panel content */}
-                    <div className="flex justify-between items-center mb-3">
-                      <h3 className="font-bold text-gray-800 flex items-center">
-                        <span className="mr-2">📋</span>
-                        <span>To-Dos</span>
-                      </h3>
-                      <button 
-                        onClick={() => openPanel(null)}
-                        className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100"
-                      >
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M4.293 4.293a1 1 011.414 0L10 8.586l4.293-4.293a1 1 111.414 1.414L11.414 10l4.293 4.293a1 1 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
-                        </svg>
-                      </button>
-                    </div>
-                    
-                    {/* Add new todo form */}
-                    <form onSubmit={addTodo} className="mb-3">
-                      <div className="flex">
-                        <input
-                          type="text"
-                          value={newTodo}
-                          onChange={(e) => setNewTodo(e.target.value)}
-                          placeholder="New to-do..."
-                          className="flex-grow text-sm border border-gray-300 rounded-l-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
-                        />
-                        <button
-                          type="submit"
-                          className="bg-green-500 hover:bg-green-600 text-white text-xs font-medium px-3 rounded-r-lg transition"
-                          disabled={newTodo.trim() === ''}
+              {/* XP Display */}
+              <div className="w-full bg-black bg-opacity-10 backdrop-filter backdrop-blur-sm py-4 px-5 rounded-xl shadow-md">
+                {/* Existing XP content */}
+                <div className="flex justify-between items-center mb-2">
+                  <div className="flex items-center">
+                    <p className="text-gray-800 font-medium text-lg">
+                      XP: 
+                      <AnimatePresence mode="wait">
+                        <motion.span
+                          key={xp}
+                          initial={{ opacity: 0, y: -20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: 20, position: 'absolute' }}
+                          className="inline-block ml-1 mr-1"
+                          transition={{ type: "spring", stiffness: 300, damping: 25 }}
                         >
-                          Add
-                        </button>
+                          {xp}
+                        </motion.span>
+                      </AnimatePresence>
+                      / {maxXp}
+                    </p>
+                    {streakMultiplier > 1 && (
+                      <motion.div 
+                        className="ml-3 text-base text-orange-500 font-bold flex items-center" 
+                        title="Streak Bonus Active!"
+                        initial={{ scale: 0.8, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                      >
+                        <motion.span 
+                          className="mr-1"
+                          animate={{ rotate: [-5, 5, -5] }}
+                          transition={{ duration: 1.5, repeat: Infinity, repeatType: "mirror" }}
+                        >
+                          🔥
+                        </motion.span>
+                        <span>x{streakMultiplier.toFixed(1)}</span>
+                      </motion.div>
+                    )}
+                  </div>
+                  {previewXp > 0 && (
+                    <motion.p 
+                      className="text-base text-green-600 font-medium"
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0 }}
+                      key={previewXp}
+                    >
+                      +{previewXp} XP
+                    </motion.p>
+                  )}
+                </div>
+                <div className="relative">
+                  <XPBar xp={xp} maxXp={maxXp} previewXp={previewXp} />
+                </div>
+              </div>
+            </div>
+            
+            {/* Bottom Left: Personal Records */}
+            <div className="col-start-1 col-span-1 row-start-3 row-span-1 flex items-end justify-start">
+              {/* Keep existing records panel content */}
+              {!isPanelOpen('records') ? (
+                <button
+                  onClick={() => openPanel('records')}
+                  className="bg-white rounded-lg shadow-md py-2 px-4 hover:bg-purple-50 transition-all duration-300 flex items-center space-x-2 border-l-4 border-purple-500"
+                >
+                  <span className="text-xl">🏆</span>
+                  <div className="text-left">
+                    <span className="font-bold text-gray-800 block">Personal Records</span>
+                    <span className="text-xs text-gray-500">Level {level} achieved</span>
+                  </div>
+                </button>
+              ) : (
+                <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-l-4 border-purple-500 origin-bottom-left">
+                  {/* Existing records panel content */}
+                  <div className="flex justify-between items-center mb-3">
+                    <h3 className="font-bold text-gray-800 flex items-center">
+                      <span className="mr-2">🏆</span>
+                      <span>Personal Records</span>
+                    </h3>
+                    <button 
+                      onClick={() => openPanel(null)}
+                      className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M4.293 4.293a1 1 011.414 0L10 8.586l4.293-4.293a1 1 111.414 1.414L11.414 10l4.293 4.293a1 1 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  {/* Add new PR form */}
+                  <form onSubmit={addPersonalRecord} className="mb-3">
+                    <div className="mb-2">
+                      <input
+                        type="text"
+                        value={newPrName}
+                        onChange={(e) => setNewPrName(e.target.value)}
+                        placeholder="New record name..."
+                        className="w-full text-sm border border-gray-300 rounded-lg px-3 py-2 mb-1 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                      />
+                      <div className="flex space-x-1">
+                        <input
+                          type="number"
+                          value={newPrValue}
+                          onChange={(e) => setNewPrValue(e.target.value)}
+                          placeholder="Starting value..."
+                          className="flex-grow text-sm border border-gray-300 rounded-l-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                          min="0"
+                        />
+                        <select
+                          value={newPrUnit}
+                          onChange={(e) => setNewPrUnit(e.target.value)}
+                          className="text-sm border-y border-r border-gray-300 rounded-r-lg px-2 py-2 bg-gray-50 focus:outline-none focus:ring-1 focus:ring-purple-500"
+                        >
+                          <option value="reps">reps</option>
+                          <option value="seconds">seconds</option>
+                          <option value="minutes">minutes</option>
+                          <option value="kg">kg</option>
+                          <option value="lbs">lbs</option>
+                        </select>
                       </div>
-                    </form>
-                    
-                    <div className="space-y-2">
-                      {todos.length > 0 ? (
-                        todos.map(todo => (
-                          <div key={todo.id} className="flex items-center p-2 border-b border-gray-100">
-                            <input 
-                              type="checkbox" 
-                              checked={todo.completed}
-                              onChange={() => toggleTodo(todo.id)}
-                              className="mr-3 w-4 h-4 text-green-500 border-gray-300 rounded focus:ring-green-500" 
-                            />
-                            <span className={`text-sm ${todo.completed ? 'text-gray-400 line-through' : 'text-gray-700'}`}>
-                              {todo.text}
+                    </div>
+                    <button
+                      type="submit"
+                      className="w-full py-1.5 bg-purple-500 hover:bg-purple-600 text-white text-xs font-medium rounded-md transition"
+                      disabled={newPrName.trim() === '' || newPrValue === '' || isNaN(newPrValue) || newPrValue < 0}
+                    >
+                      Add Record
+                    </button>
+                  </form>
+                  
+                  {/* Update the personal records display */}
+                  <div className="space-y-2">
+                    {personalRecords.length > 0 ? (
+                      personalRecords.map(record => (
+                        <div key={record.id} className="bg-purple-50 rounded-lg p-2">
+                          <div className="flex justify-between items-center mb-1">
+                            <span className="text-sm text-gray-700 truncate max-w-[150px]">{record.name}:</span>
+                            <span className="text-sm font-medium text-purple-700">
+                              {record.current} {record.unit}
                             </span>
                           </div>
-                        ))
-                      ) : (
-                        <div className="p-2 text-sm text-gray-500 text-center">
-                          No to-dos added yet. Add your first task above!
+                          <div className="flex space-x-1 justify-end">
+                            <button 
+                              onClick={() => tiePR(record.id)}
+                              className="py-1 px-2 text-xs bg-purple-200 text-purple-700 rounded hover:bg-purple-300 transition"
+                              title="Award 25 XP for tying your record"
+                            >
+                              Tie (+25)
+                            </button>
+                            <button 
+                              onClick={() => beatPR(record.id)}
+                              className="py-1 px-2 text-xs bg-purple-500 text-white rounded hover:bg-purple-600 transition"
+                              title="Award 50 XP and update your record"
+                            >
+                              Beat (+50)
+                            </button>
+                          </div>
                         </div>
-                      )}
-                    </div>
-                    
-                    <div className="mt-3 text-xs text-gray-500 italic">
-                      To-dos award +5 XP when completed
+                      ))
+                    ) : (
+                      <div className="p-2 text-sm text-gray-500 text-center">
+                        No records added yet. Create your first record above!
+                      </div>
+                    )}
+                  
+                    {/* Stats section */}
+                    <div className="mt-3 pt-3 border-t border-gray-200">
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm text-gray-700">Highest level:</span>
+                        <span className="text-sm font-medium text-purple-700">{level}</span>
+                      </div>
+                      <div className="flex justify-between items-center mt-1">
+                        <span className="text-sm text-gray-700">Total XP earned:</span>
+                        <span className="text-sm font-medium text-purple-700">
+                          {(level - 1) * 100 + xp} XP
+                        </span>
+                      </div>
                     </div>
                   </div>
-                )}
-              </div>
+                </div>
+              )}
             </div>
             
-            {/* Keep animations and modals outside the grid */}
-            {/* XP gain animation */}
-            {xpGainAnimation.show && (
+            {/* Bottom Right: To-Dos */}
+            <div className="col-start-3 col-span-1 row-start-3 row-span-1 flex items-end justify-end">
+              {/* Keep existing todos panel content */}
+              {!isPanelOpen('todos') ? (
+                <button
+                  onClick={() => openPanel('todos')}
+                  className="bg-white rounded-lg shadow-md py-2 px-4 hover:bg-green-50 transition-all duration-300 flex items-center space-x-2 border-r-4 border-green-500"
+                >
+                  <span className="text-xl">📋</span>
+                  <div className="text-left">
+                    <span className="font-bold text-gray-800 block">To-Dos</span>
+                    <span className="text-xs text-gray-500">Quick tasks</span>
+                  </div>
+                </button>
+              ) : (
+                <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-r-4 border-green-500 origin-bottom-right">
+                  {/* Existing todos panel content */}
+                  <div className="flex justify-between items-center mb-3">
+                    <h3 className="font-bold text-gray-800 flex items-center">
+                      <span className="mr-2">📋</span>
+                      <span>To-Dos</span>
+                    </h3>
+                    <button 
+                      onClick={() => openPanel(null)}
+                      className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-100"
+                    >
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M4.293 4.293a1 1 011.414 0L10 8.586l4.293-4.293a1 1 111.414 1.414L11.414 10l4.293 4.293a1 1 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  {/* Add new todo form */}
+                  <form onSubmit={addTodo} className="mb-3">
+                    <div className="flex">
+                      <input
+                        type="text"
+                        value={newTodo}
+                        onChange={(e) => setNewTodo(e.target.value)}
+                        placeholder="New to-do..."
+                        className="flex-grow text-sm border border-gray-300 rounded-l-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-green-500"
+                      />
+                      <button
+                        type="submit"
+                        className="bg-green-500 hover:bg-green-600 text-white text-xs font-medium px-3 rounded-r-lg transition"
+                        disabled={newTodo.trim() === ''}
+                      >
+                        Add
+                      </button>
+                    </div>
+                  </form>
+                  
+                  <div className="space-y-2">
+                    {todos.length > 0 ? (
+                      todos.map(todo => (
+                        <div key={todo.id} className="flex items-center p-2 border-b border-gray-100">
+                          <input 
+                            type="checkbox" 
+                            checked={todo.completed}
+                            onChange={() => toggleTodo(todo.id)}
+                            className="mr-3 w-4 h-4 text-green-500 border-gray-300 rounded focus:ring-green-500" 
+                          />
+                          <span className={`text-sm ${todo.completed ? 'text-gray-400 line-through' : 'text-gray-700'}`}>
+                            {todo.text}
+                          </span>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="p-2 text-sm text-gray-500 text-center">
+                        No to-dos added yet. Add your first task above!
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="mt-3 text-xs text-gray-500 italic">
+                    To-dos award +5 XP when completed
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          
+          {/* Keep animations and modals outside the grid */}
+          {/* XP gain animation */}
+          {xpGainAnimation.show && (
+            <motion.div 
+              className="fixed bottom-10 right-10 bg-green-500 text-white font-bold rounded-full px-4 py-2 z-50 text-2xl shadow-lg"
+              initial={{ y: 50, opacity: 0, scale: 0.5 }}
+              animate={{ y: -50, opacity: 1, scale: 1 }}
+              exit={{ y: -100, opacity: 0 }}
+              transition={{ duration: 1.5, ease: "easeOut" }}
+            >
+              +{xpGainAnimation.amount} XP!
+            </motion.div>
+          )}
+          
+          {/* Level up modal */}
+          {showLevelUp && (
+            <motion.div 
+              className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
               <motion.div 
-                className="fixed bottom-10 right-10 bg-green-500 text-white font-bold rounded-full px-4 py-2 z-50 text-2xl shadow-lg"
-                initial={{ y: 50, opacity: 0, scale: 0.5 }}
-                animate={{ y: -50, opacity: 1, scale: 1 }}
-                exit={{ y: -100, opacity: 0 }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
-              >
-                +{xpGainAnimation.amount} XP!
-              </motion.div>
-            )}
-            
-            {/* Level up modal */}
-            {showLevelUp && (
-              <motion.div 
-                className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.5 }}
+                className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 p-8 rounded-xl shadow-2xl text-center"
+                initial={{ scale: 0.5, y: 100, opacity: 0 }}
+                animate={{ scale: 1, y: 0, opacity: 1 }}
+                exit={{ scale: 0.5, y: -100, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
                 <motion.div 
-                  className="bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-500 p-8 rounded-xl shadow-2xl text-center"
-                  initial={{ scale: 0.5, y: 100, opacity: 0 }}
-                  animate={{ scale: 1, y: 0, opacity: 1 }}
-                  exit={{ scale: 0.5, y: -100, opacity: 0 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="text-6xl mb-4"
+                  animate={{ 
+                    scale: [1, 1.2, 1],
+                    rotate: [0, 10, -10, 0],
+                  }}
+                  transition={{ duration: 0.6, repeat: 2 }}
                 >
-                  <motion.div 
-                    className="text-6xl mb-4"
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                      rotate: [0, 10, -10, 0],
-                    }}
-                    transition={{ duration: 0.6, repeat: 2 }}
-                  >
-                    🎉
-                  </motion.div>
-                  <motion.h2 
-                    className="text-3xl font-bold text-gray-800 mb-2"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 0.5, repeat: 3, repeatType: "mirror" }}
-                  >
-                    Level Up!
-                  </motion.h2>
-                  <p className="text-xl text-gray-700">You've reached level {level}!</p>
-                  <motion.button
-                    className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-md"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setShowLevelUp(false)}
-                  >
-                    Continue
-                  </motion.button>
+                  🎉
                 </motion.div>
+                <motion.h2 
+                  className="text-3xl font-bold text-gray-800 mb-2"
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 0.5, repeat: 3, repeatType: "mirror" }}
+                >
+                  Level Up!
+                </motion.h2>
+                <p className="text-xl text-gray-700">You've reached level {level}!</p>
+                <motion.button
+                  className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-md"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setShowLevelUp(false)}
+                >
+                  Continue
+                </motion.button>
               </motion.div>
-            )}
-          </div>
-        } />
-      </Routes>
-    </BrowserRouter>
+            </motion.div>
+          )}
+        </div>
+      } />
+    </Routes>
+
   );
 }
 

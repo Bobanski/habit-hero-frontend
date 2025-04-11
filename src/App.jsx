@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from './Login';
-import Dashboard from './Dashboard';
 import ProgressDashboard from './ProgressDashboard';
-import API_BASE_URL from './config';
 import './App.css';
 import { motion, AnimatePresence } from 'framer-motion';
 

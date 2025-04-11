@@ -947,7 +947,7 @@ const loadUserData = async () => {
               {/* XP Display */}
               <div className="w-full bg-black bg-opacity-10 backdrop-filter backdrop-blur-sm py-4 px-5 rounded-xl shadow-md">
                 {/* Existing XP content */}
-                <div className="flex justify-between items-center mb-2">
+                <div className="flex justify-between items-center mb-2 flex-wrap gap-y-2">
                   <div className="flex items-center">
                     <p className="text-gray-800 font-medium text-lg">
                       XP: 
@@ -996,7 +996,7 @@ const loadUserData = async () => {
                     </motion.p>
                   )}
                 </div>
-                <div className="relative">
+                <div className="w-full max-w-sm mx-auto mt-2">
                   <XPBar xp={xp} maxXp={maxXp} previewXp={previewXp} />
                 </div>
               </div>
@@ -1143,7 +1143,7 @@ const loadUserData = async () => {
                   </div>
                 </button>
               ) : (
-                <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-r-4 border-green-500 origin-bottom-right">
+                <div className="bg-white rounded-xl shadow-lg p-4 w-full max-w-xs sm:max-w-sm md:max-w-md max-h-[80vh] overflow-auto z-20 border-r-4 border-green-500 origin-bottom-right">
                   {/* Existing todos panel content */}
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="font-bold text-gray-800 flex items-center">

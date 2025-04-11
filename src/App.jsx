@@ -968,61 +968,66 @@ const loadUserData = async () => {
               </div>
               
               {/* XP Display */}
-              <div className="w-full bg-black bg-opacity-10 backdrop-filter backdrop-blur-sm py-4 px-5 rounded-xl shadow-md">
-                {/* Existing XP content */}
-                <div className="flex justify-between items-center mb-2 flex-wrap gap-y-2">
-                  <div className="flex items-center">
-                    <p className="text-gray-800 font-medium text-lg">
-                      XP: 
-                      <AnimatePresence mode="wait">
-                        <motion.span
-                          key={xp}
-                          initial={{ opacity: 0, y: -20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 20, position: 'absolute' }}
-                          className="inline-block ml-1 mr-1"
-                          transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                        >
-                          {xp}
-                        </motion.span>
-                      </AnimatePresence>
-                      / {maxXp}
-                    </p>
-                    {streakMultiplier > 1 && (
-                      <motion.div 
-                        className="ml-3 text-base text-orange-500 font-bold flex items-center" 
-                        title="Streak Bonus Active!"
-                        initial={{ scale: 0.8, opacity: 0 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                      >
-                        <motion.span 
-                          className="mr-1"
-                          animate={{ rotate: [-5, 5, -5] }}
-                          transition={{ duration: 1.5, repeat: Infinity, repeatType: "mirror" }}
-                        >
-                          🔥
-                        </motion.span>
-                        <span>x{streakMultiplier.toFixed(1)}</span>
-                      </motion.div>
-                    )}
-                  </div>
-                  {previewXp > 0 && (
-                    <motion.p 
-                      className="text-base text-green-600 font-medium"
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0 }}
-                      key={previewXp}
-                    >
-                      +{previewXp} XP
-                    </motion.p>
-                  )}
-                </div>
-                <div className="w-full max-w-[95vw] sm:max-w-md mx-auto mt-4 px-2">
-                  <XPBar xp={xp} maxXp={maxXp} previewXp={previewXp} />
-                </div>
-              </div>
+              <div className="w-full bg-black bg-opacity-10 backdrop-filter backdrop-blur-sm py-4 px-4 sm:px-5 rounded-xl shadow-md mt-6">
+  <div className="flex flex-col items-center w-full px-1">
+    {/* XP Text and Streak */}
+    <div className="flex justify-between items-center mb-2 w-full max-w-[92vw] sm:max-w-sm">
+      <div className="flex items-center">
+        <p className="text-gray-800 font-medium text-lg">
+          XP: 
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={xp}
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20, position: 'absolute' }}
+              className="inline-block ml-1 mr-1"
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+            >
+              {xp}
+            </motion.span>
+          </AnimatePresence>
+          / {maxXp}
+        </p>
+        {streakMultiplier > 1 && (
+          <motion.div 
+            className="ml-3 text-base text-orange-500 font-bold flex items-center" 
+            title="Streak Bonus Active!"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
+          >
+            <motion.span 
+              className="mr-1"
+              animate={{ rotate: [-5, 5, -5] }}
+              transition={{ duration: 1.5, repeat: Infinity, repeatType: "mirror" }}
+            >
+              🔥
+            </motion.span>
+            <span>x{streakMultiplier.toFixed(1)}</span>
+          </motion.div>
+        )}
+      </div>
+      {previewXp > 0 && (
+        <motion.p 
+          className="text-base text-green-600 font-medium"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          key={previewXp}
+        >
+          +{previewXp} XP
+        </motion.p>
+      )}
+    </div>
+
+    {/* XPBar itself - now stretched on mobile */}
+    <div className="w-full max-w-[92vw] sm:max-w-sm">
+      <XPBar xp={xp} maxXp={maxXp} previewXp={previewXp} />
+    </div>
+  </div>
+</div>
+
             </div>
             
             {/* Bottom Left: Personal Records */}

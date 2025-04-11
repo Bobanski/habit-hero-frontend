@@ -544,7 +544,7 @@ const beatPR = (recordId) => {
     async function checkAuth() {
       try {
         console.log("Checking authentication status...");
-        const response = await fetch('${API_BASE_URL}/api/auth/me', {
+        const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
           method: 'GET',
           credentials: 'include', // Important for cookies
         });
@@ -582,7 +582,7 @@ const loadUserData = async () => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
     
-    const response = await fetch('${API_BASE_URL}/api/user', {
+    const response = await fetch(`${API_BASE_URL}/api/user`, {
       credentials: 'include', // Important for cookies
       signal: controller.signal
     });
@@ -631,7 +631,7 @@ const loadUserData = async () => {
         todos
       };
       
-      const response = await fetch('${API_BASE_URL}/api/user', {
+      const response = await fetch(`${API_BASE_URL}/api/user`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -656,7 +656,7 @@ const loadUserData = async () => {
       // Also clear token from localStorage
       localStorage.removeItem('auth_token');
       
-      await fetch('${API_BASE_URL}/api/auth/logout', {
+      await fetch(`${API_BASE_URL}/api/auth/logout`, {
         method: 'POST',
         credentials: 'include',
       });

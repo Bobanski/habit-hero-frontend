@@ -224,6 +224,7 @@ function App() {
   const [todos, setTodos] = useState([]);
   const [newHabitName, setNewHabitName] = useState('');
   const [newHabitXp, setNewHabitXp] = useState(10); // default XP for new habits
+  const [activePanel, setActivePanel] = useState(null);
 
   // Add this with your other state variables
   const [view, setView] = useState("dashboard"); // "dashboard" or "analytics"

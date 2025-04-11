@@ -8,6 +8,8 @@ function Login({ onLoginSuccess }) {
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
+  console.log("🚀 VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
+
   useEffect(() => {
     // Try to login with token on component mount
     handleTokenLogin();

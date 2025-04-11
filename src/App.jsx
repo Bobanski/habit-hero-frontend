@@ -4,6 +4,7 @@ import Login from './Login';
 import ProgressDashboard from './ProgressDashboard';
 import './App.css';
 import { motion, AnimatePresence } from 'framer-motion';
+import API_BASE_URL from './config';
 
 // Enhanced XP Bar Component with Neon Glow Effect
 const XPBar = ({ xp, maxXp, previewXp = 0 }) => {
@@ -543,7 +544,7 @@ const beatPR = (recordId) => {
     async function checkAuth() {
       try {
         console.log("Checking authentication status...");
-        const response = await fetch('/api/auth/me', {
+        const response = await fetch('${API_BASE_URL}/api/auth/me', {
           method: 'GET',
           credentials: 'include', // Important for cookies
         });
@@ -581,7 +582,7 @@ const loadUserData = async () => {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
     
-    const response = await fetch('/api/user', {
+    const response = await fetch('${API_BASE_URL}/api/user', {
       credentials: 'include', // Important for cookies
       signal: controller.signal
     });
@@ -630,7 +631,7 @@ const loadUserData = async () => {
         todos
       };
       
-      const response = await fetch('/api/user', {
+      const response = await fetch('${API_BASE_URL}/api/user', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -655,7 +656,7 @@ const loadUserData = async () => {
       // Also clear token from localStorage
       localStorage.removeItem('auth_token');
       
-      await fetch('/api/auth/logout', {
+      await fetch('${API_BASE_URL}/api/auth/logout', {
         method: 'POST',
         credentials: 'include',
       });

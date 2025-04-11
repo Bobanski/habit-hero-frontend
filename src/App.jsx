@@ -577,47 +577,45 @@ const beatPR = (recordId) => {
 const loadUserData = async () => {
   try {
     console.log("Loading user data...");
-    
-    // Add timeout to prevent endless loading
+
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
-    
+
     const response = await fetch(`${API_BASE_URL}/api/user`, {
-      credentials: 'include', // Important for cookies
+      credentials: 'include',
       signal: controller.signal
     });
-    
+
     clearTimeout(timeoutId);
     console.log("User data response:", response.status);
-    
+
     if (response.ok) {
       const data = await response.json();
       console.log("User data loaded:", data);
-      
-      // Reset the 'selected' field for all habits to ensure they don't auto-select
-      const cleanedHabits = data.habits ? data.habits.map(habit => ({
+
+      // Always use what the backend provides, just clean up UI-specific fields
+      const cleanedHabits = (data.habits || []).map(habit => ({
         ...habit,
-        selected: false // Make sure all habits load as unselected
-      })) : [];
-      
-      // Update all state with the loaded data
+        selected: false // Always reset selected on load
+      }));
+
       setXp(data.xp || 0);
       setLevel(data.level || 1);
-      setHabits(cleanedHabits); // Use the cleaned habits
+      setHabits(cleanedHabits);
       setPersonalRecords(data.prs || []);
       setTodos(data.todos || []);
     } else {
       console.error("Failed to load user data:", await response.text());
-      // Use default data instead of getting stuck
-      console.log("Using default data instead");
     }
   } catch (error) {
     console.error('Failed to load user data:', error);
   } finally {
-    // Always set loading to false to prevent getting stuck
     setIsLoading(false);
   }
 };
+  
+
+  
   
   // Function to save user data to backend
   const saveUserData = async (dataToSave = null) => {
@@ -668,17 +666,30 @@ const loadUserData = async () => {
   
   const handleLoginSuccess = (userData) => {
     console.log("Login successful:", userData);
-    
-    // Set user immediately to prevent loading issues
-    setUser({
-      username: userData.username
-    });
-    
-    // Then load data asynchronously
-    setTimeout(() => {
-      loadUserData();
-    }, 100);
+  
+    // Set user state
+    setUser({ username: userData.username });
+  
+    // Wait briefly to allow cookies to set, then re-check auth
+    setTimeout(async () => {
+      try {
+        const check = await fetch(`${API_BASE_URL}/api/auth/me`, {
+          credentials: 'include'
+        });
+  
+        if (check.ok) {
+          console.log("Cookie confirmed, now loading user data");
+          await loadUserData();
+        } else {
+          console.warn("Cookie still not recognized, retrying in 200ms...");
+          setTimeout(() => loadUserData(), 200);
+        }
+      } catch (err) {
+        console.error("Auth recheck failed:", err);
+      }
+    }, 150);
   };
+  
   
   // Simplified loading state
   if (isLoading) {

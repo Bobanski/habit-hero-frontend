@@ -772,7 +772,7 @@ const loadUserData = async () => {
                   </div>
                 </button>
               ) : (
-                <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-l-4 border-blue-500 origin-top-left">
+                <div className="bg-white rounded-xl shadow-lg p-4 w-full max-w-xs sm:max-w-sm md:max-w-md max-h-[80vh] overflow-auto z-20 border-l-4 border-blue-500 origin-top-left">
                   {/* Existing habits panel content */}
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="font-bold text-gray-800 flex items-center">
@@ -877,7 +877,7 @@ const loadUserData = async () => {
                   </div>
                 </button>
               ) : (
-                <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-r-4 border-orange-500">
+                <div className="bg-white rounded-xl shadow-lg p-4 w-full max-w-xs sm:max-w-sm md:max-w-md max-h-[80vh] overflow-auto z-20 border-r-4 border-orange-500">
                   {/* Existing streaks panel content */}
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="font-bold text-gray-800 flex items-center">
@@ -1017,7 +1017,7 @@ const loadUserData = async () => {
                   </div>
                 </button>
               ) : (
-                <div className="bg-white rounded-xl shadow-lg p-4 w-[280px] max-h-[400px] overflow-auto z-20 border-l-4 border-purple-500 origin-bottom-left">
+                <div className="bg-white rounded-xl shadow-lg p-4 w-full max-w-xs sm:max-w-sm md:max-w-md max-h-[80vh] overflow-auto z-20 border-l-4 border-purple-500 origin-bottom-left">
                   {/* Existing records panel content */}
                   <div className="flex justify-between items-center mb-3">
                     <h3 className="font-bold text-gray-800 flex items-center">

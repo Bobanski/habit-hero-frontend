@@ -45,7 +45,11 @@ function Login({ onLoginSuccess }) {
       }
       
       // Use the form-based endpoints with absolute URL
-      const endpoint = mode === 'login' ? '/auth/form-login' : '/auth/form-register';
+      const API_PREFIX = '/api';
+      const endpoint = mode === 'login' 
+        ? `${API_PREFIX}/auth/form-login` 
+        : `${API_PREFIX}/auth/form-register`;
+
       console.log(`Attempting ${mode} with username: ${username}`);
       
       // Use form-urlencoded data for better compatibility
@@ -87,7 +91,7 @@ function Login({ onLoginSuccess }) {
       
       console.log("Trying token login");
       
-      const response = await fetchWithTimeout(`${API_BASE_URL}/auth/verify-token`, {
+      const response = await fetchWithTimeout(`${API_BASE_URL}/api/auth/verify-token`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

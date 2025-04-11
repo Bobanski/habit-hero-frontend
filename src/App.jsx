@@ -10,7 +10,7 @@ const XPBar = ({ xp, maxXp, previewXp = 0 }) => {
   const actualPercentage = Math.min((xp / maxXp) * 100, 100);
   const totalPercentage = Math.min(((xp + previewXp) / maxXp) * 100, 100);
   const isNearLevelUp = actualPercentage > 80;
-
+  
   return (
     <div className="w-full bg-gray-300 rounded-full h-4 overflow-visible relative my-2">
       {/* Shadow backdrop for depth */}
@@ -222,7 +222,9 @@ function App() {
   const [habits, setHabits] = useState([]);
   const [personalRecords, setPersonalRecords] = useState([]);
   const [todos, setTodos] = useState([]);
-  
+  const [newHabitName, setNewHabitName] = useState('');
+  const [newHabitXp, setNewHabitXp] = useState(10); // default XP for new habits
+
   // Add this with your other state variables
   const [view, setView] = useState("dashboard"); // "dashboard" or "analytics"
 

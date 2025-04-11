@@ -67,11 +67,17 @@ function Login({ onLoginSuccess }) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.detail || `${mode} failed: ${response.status}`);
       }
+const data = await response.json();
+console.log("✅ Login/Register successful:", data);
 
-      const data = await response.json();
-      console.log("✅ Login/Register successful:", data);
+// Store the session ID in localStorage for token-based auth fallback
+if (data.session_id) {
+  localStorage.setItem('auth_token', data.session_id);
+  console.log("🔑 Saved auth token to localStorage");
+}
 
-      // 🚫 TEMPORARILY DISABLE THIS to debug the blank screen
+// 🚫 TEMPORARILY DISABLE THIS to debug the blank screen
+onLoginSuccess(data);
       onLoginSuccess(data);
 
     } catch (err) {
@@ -98,6 +104,9 @@ function Login({ onLoginSuccess }) {
       if (response.ok) {
         const data = await response.json();
         console.log("🔓 Token verification successful:", data);
+        
+        // Call onLoginSuccess with the data
+        onLoginSuccess({ username: data.username, access_token: token });
 
         // onLoginSuccess({ username: data.username, access_token: token });
       }

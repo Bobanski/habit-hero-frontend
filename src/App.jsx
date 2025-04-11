@@ -547,9 +547,15 @@ const beatPR = (recordId) => {
     async function checkAuth() {
       try {
         console.log("Checking authentication status...");
+        
+        // Get token from localStorage if available
+        const token = localStorage.getItem('auth_token');
+        const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+        
         const response = await fetch(`${API_BASE_URL}/api/auth/me`, {
           method: 'GET',
-          credentials: 'include', // Important for cookies
+          credentials: 'include', // Try cookies first
+          headers: headers       // Fall back to token auth
         });
         
         console.log("Auth status response:", response.status);
@@ -583,9 +589,17 @@ const loadUserData = async () => {
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 5000);
+    
+    // Get token from localStorage if available
+    const token = localStorage.getItem('auth_token');
+    const headers = token ? {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    } : { 'Content-Type': 'application/json' };
 
     const response = await fetch(`${API_BASE_URL}/api/user`, {
-      credentials: 'include',
+      credentials: 'include',  // Try cookies first
+      headers: headers,        // Fall back to token auth
       signal: controller.signal
     });
 
@@ -631,13 +645,17 @@ const loadUserData = async () => {
         prs: personalRecords,
         todos
       };
+      // Get token from localStorage if available
+      const token = localStorage.getItem('auth_token');
+      const headers = {
+        'Content-Type': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` })
+      };
       
       const response = await fetch(`${API_BASE_URL}/api/user`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // Important for cookies
+        headers: headers,
+        credentials: 'include', // Try cookies first
         body: JSON.stringify(data),
       });
       
@@ -676,15 +694,20 @@ const loadUserData = async () => {
     // Wait briefly to allow cookies to set, then re-check auth
     setTimeout(async () => {
       try {
+        // Get token from localStorage if available
+        const token = localStorage.getItem('auth_token');
+        const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+        
         const check = await fetch(`${API_BASE_URL}/api/auth/me`, {
-          credentials: 'include'
+          credentials: 'include',
+          headers: headers
         });
   
         if (check.ok) {
-          console.log("Cookie confirmed, now loading user data");
+          console.log("Authentication confirmed, now loading user data");
           await loadUserData();
         } else {
-          console.warn("Cookie still not recognized, retrying in 200ms...");
+          console.warn("Authentication still not recognized, retrying in 200ms...");
           setTimeout(() => loadUserData(), 200);
         }
       } catch (err) {

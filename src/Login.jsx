@@ -7,18 +7,17 @@ function Login({ onLoginSuccess }) {
   const [mode, setMode] = useState('login');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  
+
   console.log("🚀 VITE_API_BASE_URL:", import.meta.env.VITE_API_BASE_URL);
 
   useEffect(() => {
-    // Try to login with token on component mount
     handleTokenLogin();
   }, []);
-  
+
   const fetchWithTimeout = async (url, options, timeout = 5000) => {
     const controller = new AbortController();
     const id = setTimeout(() => controller.abort(), timeout);
-    
+
     try {
       const response = await fetch(url, {
         ...options,
@@ -34,88 +33,83 @@ function Login({ onLoginSuccess }) {
       throw error;
     }
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     setError('');
-    
+
     try {
-      // Validate username
       if (!/^[a-zA-Z0-9_-]+$/.test(username)) {
         throw new Error('Username can only contain letters, numbers, underscores, and hyphens');
       }
-      
-      // Use the form-based endpoints with absolute URL
+
       const API_PREFIX = '/api';
-      const endpoint = mode === 'login' 
-        ? `${API_PREFIX}/auth/form-login` 
+      const endpoint = mode === 'login'
+        ? `${API_PREFIX}/auth/form-login`
         : `${API_PREFIX}/auth/form-register`;
 
-      console.log(`Attempting ${mode} with username: ${username}`);
-      
-      // Use form-urlencoded data for better compatibility
+      console.log(`🟡 Attempting ${mode} with username: ${username}`);
+
       const formData = new URLSearchParams();
       formData.append('username', username);
-      
+
       const response = await fetchWithTimeout(`${API_BASE_URL}${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: formData,
-        credentials: 'include', // Important for cookies
-      }, 5000);
-      
+        credentials: 'include',
+      });
+
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.detail || `${mode} failed: ${response.status}`);
       }
-      
+
       const data = await response.json();
-      console.log("Login successful:", data);
-      
-      // Call the success handler
+      console.log("✅ Login/Register successful:", data);
+
+      // 🚫 TEMPORARILY DISABLE THIS to debug the blank screen
       onLoginSuccess(data);
-      
+
     } catch (err) {
-      console.error("Login error:", err);
+      console.error("❌ Login error:", err);
       setError(err.message || 'Something went wrong. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
-  
+
   const handleTokenLogin = async () => {
     try {
       const token = localStorage.getItem('auth_token');
       if (!token) return;
-      
-      console.log("Trying token login");
-      
+
+      console.log("🔑 Trying token login");
+
       const response = await fetchWithTimeout(`${API_BASE_URL}/api/auth/verify-token`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      
+
       if (response.ok) {
         const data = await response.json();
-        console.log("Token verification successful:", data);
-        
-        // Call the success handler
-        onLoginSuccess({ username: data.username, access_token: token });
+        console.log("🔓 Token verification successful:", data);
+
+        // onLoginSuccess({ username: data.username, access_token: token });
       }
     } catch (error) {
-      console.error("Token login failed:", error);
-      // Clear invalid token
+      console.error("⚠️ Token login failed:", error);
       localStorage.removeItem('auth_token');
     }
   };
-  
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-200 p-4">
-      <motion.div 
+      <motion.div
         className="bg-white p-8 rounded-xl shadow-lg w-full max-w-md"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -130,9 +124,9 @@ function Login({ onLoginSuccess }) {
           <h1 className="text-4xl font-bold text-gray-800 mb-2">Habit Hero</h1>
           <p className="text-gray-600">{mode === 'login' ? 'Sign in to continue' : 'Create a new account'}</p>
         </motion.div>
-        
+
         {error && (
-          <motion.div 
+          <motion.div
             className="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4 rounded"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -140,7 +134,7 @@ function Login({ onLoginSuccess }) {
             {error}
           </motion.div>
         )}
-        
+
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="username" className="block text-gray-700 font-medium mb-2">
@@ -156,7 +150,7 @@ function Login({ onLoginSuccess }) {
               required
             />
           </div>
-          
+
           <motion.button
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg transition-colors"
@@ -175,7 +169,7 @@ function Login({ onLoginSuccess }) {
             ) : mode === 'login' ? 'Sign In' : 'Create Account'}
           </motion.button>
         </form>
-        
+
         <div className="mt-6 text-center">
           <button
             onClick={() => setMode(mode === 'login' ? 'register' : 'login')}

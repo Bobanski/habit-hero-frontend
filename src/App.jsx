@@ -1022,7 +1022,7 @@ const loadUserData = async () => {
     </div>
 
     {/* XPBar itself - now stretched on mobile */}
-    <div className="w-full max-w-[92vw] sm:max-w-sm">
+    <div className="w-full px-4 sm:px-5 mt-4">
       <XPBar xp={xp} maxXp={maxXp} previewXp={previewXp} />
     </div>
   </div>

@@ -76,8 +76,8 @@ if (data.session_id) {
   console.log("🔑 Saved auth token to localStorage");
 }
 
-// 🚫 TEMPORARILY DISABLE THIS to debug the blank screen
-onLoginSuccess(data);
+
+      // Call the success handler passed from App.jsx
       onLoginSuccess(data);
 
     } catch (err) {
